@@ -1,464 +1,612 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GritsHub - Reducing Waste, Fighting Hunger</title>
-  <style>
-    :root {
-      --primary: #4CAF50;
-      --secondary: #FF9800;
-      --dark: #2E7D32;
-      --light: #E8F5E9;
-      --text: #333;
-      --white: #fff;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: var(--primary);
-      padding: 1rem;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      position: fixed;
-      width: 100%;
-      z-index: 100;
-    }
-
-    .navbar {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--white);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-    }
-
-    .logo-icon {
-      margin-right: 10px;
-      font-size: 24px;
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-
-    nav a {
-      color: var(--white);
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    nav a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-    }
-
-    .auth-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .button {
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .primary-button {
-      background-color: var(--dark);
-      color: var(--white);
-      border: none;
-    }
-
-    .secondary-button {
-      background-color: transparent;
-      color: var(--white);
-      border: 1px solid var(--white);
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .hero {
-      padding-top: 100px;
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/600') center/cover no-repeat;
-      color: var(--white);
-      text-align: center;
-      padding: 8rem 1rem 6rem;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .cta-primary {
-      background-color: var(--secondary);
-      color: var(--text);
-      font-weight: bold;
-      padding: 12px 24px;
-      font-size: 1.1rem;
-    }
-
-    .cta-secondary {
-      background-color: transparent;
-      color: var(--white);
-      border: 2px solid var(--white);
-      padding: 12px 24px;
-      font-size: 1.1rem;
-    }
-
-    .features {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 1rem;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .section-title h2 {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .section-title p {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .feature-card {
-      background-color: var(--light);
-      border-radius: 8px;
-      padding: 2rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-    }
-
-    .feature-icon {
-      background-color: var(--primary);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      color: var(--white);
-      font-size: 1.5rem;
-    }
-
-    .feature-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--dark);
-    }
-
-    .how-it-works {
-      background-color: var(--light);
-      padding: 4rem 1rem;
-    }
-
-    .steps-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .steps {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .step {
-      flex: 1 1 220px;
-      max-width: 300px;
-      min-height: 260px;
-      padding: 1rem;
-      text-align: center;
-      box-sizing: border-box;
-      background-color: var(--white);
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    }
-
-    .step-number {
-      background-color: var(--secondary);
-      color: var(--white);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem;
-      font-weight: bold;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-
-    .step h3 {
-      margin-bottom: 1rem;
-      color: var(--dark);
-    }
-
-    .testimonials {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 1rem;
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .testimonial-card {
-      background-color: var(--white);
-      border-radius: 8px;
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .testimonial-text {
-      font-style: italic;
-      margin-bottom: 1.5rem;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-    }
-
-    .author-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-right: 1rem;
-    }
-
-    .author-info h4 {
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .author-info p {
-      color: #666;
-      font-size: 0.9rem;
-    }
-
-    .cta-section {
-      background-color: var(--primary);
-      color: var(--white);
-      text-align: center;
-      padding: 4rem 1rem;
-    }
-
-    .cta-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .cta-content h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .cta-content p {
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
-    }
-
-    footer {
-      background-color: #333;
-      color: var(--white);
-      padding: 3rem 1rem;
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-
-    .footer-column h3 {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .footer-column ul {
-      list-style: none;
-    }
-
-    .footer-column ul li {
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-column a {
-      color: #ccc;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer-column a:hover {
-      color: var(--white);
-    }
-
-    .social-links {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .social-icon {
-      color: var(--white);
-      font-size: 1.5rem;
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: center;
-      padding-top: 2rem;
-      margin-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    @media (max-width: 768px) {
-      nav ul {
-        display: none;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GritsHub - Reducing Waste, Fighting Hunger</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #FF9800;
+            --dark: #2E7D32;
+            --light: #E8F5E9;
+            --text: #333;
+            --white: #fff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .primary-button {
+            background-color: var(--dark);
+            color: var(--white);
+            border: none;
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .hero {
+            padding-top: 100px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding: 8rem 1rem 6rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .cta-primary {
+            background-color: var(--secondary);
+            color: var(--text);
+            font-weight: bold;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+        }
+        
+        .cta-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 12px 24px;
+            font-size: 1.1rem;
+        }
+        
+        .features {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            background-color: var(--primary);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .how-it-works {
+            background-color: var(--light);
+            padding: 4rem 1rem;
+        }
+        
+        .steps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: center;
+            position: relative;
+            margin: 0 15px;
+        }
+        
+        .step-number {
+            background-color: var(--secondary);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .testimonials {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .testimonial-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            background-color: #333;
+            color: var(--white);
+            padding: 3rem 1rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="navbar">
-        <a href="#" class="logo">
-            <span class="logo-icon">🍽️</span> GritsHub
-        </a>
-        <nav>
-            <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            </ul>
-        </nav>
-        <div class="auth-buttons">
-            <button class="button primary-button">Login</button>
-            <button class="button secondary-button">Sign Up</button>
-        </div>
+            <a href="#" class="logo">
+                <span class="logo-icon">♻️</span> GritsHub
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#for-businesses">For Businesses</a></li>
+                    <li><a href="#for-recipients">For Recipients</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="button secondary-button">Log In</a>
+                <a href="#" class="button primary-button">Sign Up</a>
+            </div>
         </div>
     </header>
-    
     <section class="hero">
         <div class="hero-content">
-        <h1>Reducing Waste, Fighting Hunger</h1>
-        <p>Join us in our mission to connect food donors with those in need.</p>
-        <div class="cta-buttons">
-            <a href="#features" class="cta-primary">Get Started</a>
-            <a href="#learn-more" class="cta-secondary">Learn More</a>
-        </div>
+            <h1>Reducing Food Waste, Feeding Communities</h1>
+            <p>GritsHub connects eligible individuals with local businesses to rescue quality food that would otherwise go to waste, creating a more sustainable and food-secure community.</p>
+            <div class="cta-buttons">
+                <a href="#" class="button cta-primary">Get Food</a>
+                <a href="#" class="button cta-secondary">Donate Food</a>
+            </div>
         </div>
     </section>
-    
-    <section id="features" class="features">
+    <section class="features" id="for-recipients">
         <div class="section-title">
-        <h2>Features</h2>
-        <p>Discover the powerful features that make GritsHub the best choice for reducing food waste and fighting hunger.</p>
+            <h2>For Recipients</h2>
+            <p>Access quality food with dignity and convenience</p>
         </div>
         <div class="features-grid">
-        <!-- Feature Card 1 -->
-        <div class="feature-card">
-            <div class="feature-icon">🔗</div>
-            <h3>Connect with Donors</h3>
-            <p>Easily connect with local food donors and organizations.</p>
+            <div class="feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3>Easy Verification</h3>
+                <p>Simple one-time verification of your EBT/SNAP eligibility gives you instant access to food listings in your area.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Browse & Reserve</h3>
+                <p>See what's available nearby, reserve items for pickup, and get notifications when new items become available.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🗓️</div>
+                <h3>Convenient Pickup</h3>
+                <p>Choose your pickup time and location. No waiting in lines or filling out forms repeatedly.</p>
+            </div>
         </div>
-    
-        <!-- Feature Card 2 -->
-        <div class="feature-card">
-            <div class="feature-icon">📦</div>
-            <h3>Track Donations</h3>
-            <p>Keep track of all your donations in one place.</p>
+    </section>
+    <section class="features" id="for-businesses">
+        <div class="section-title">
+            <h2>For Businesses</h2>
+            <p>Turn food waste into positive community impact</p>
         </div>
-    
-        <!-- Feature Card 3 -->
-        <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>Analytics & Reporting</h3>
-            <p>Get insights into your impact and track
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">💼</div>
+                <h3>Simple Management</h3>
+                <p>Easily list surplus food items, set pickup windows, and track the impact of your donations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Impact Tracking</h3>
+                <p>See your environmental and social impact with detailed metrics on food rescued and carbon saved.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>Tax Benefits</h3>
+                <p>Automated donation receipts make it easy to claim available tax benefits for your contributions.</p>
+            </div>
+        </div>
+    </section>
+    <section class="how-it-works" id="how-it-works">
+        <div class="steps-container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>A simple process for businesses and recipients</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Sign Up & Verify</h3>
+                    <p>Create an account and verify eligibility (EBT/SNAP for recipients; business details for donors).</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>List or Browse</h3>
+                    <p>Businesses list available food items; recipients browse and reserve what they need.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Coordinate Pickup</h3>
+                    <p>Set pickup times and locations that work for both parties.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Track Impact</h3>
+                    <p>See how much food you've rescued or received, and the environmental impact created.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>Success Stories</h2>
+            <p>Hear from the people using GritsHub</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"GritsHub has been a lifesaver during tight weeks. The quality of food is amazing, and the pickup process is so dignified."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="/api/placeholder/50/50" alt="Local User">
+                    </div>
+                    <div class="author-info">
+                        <h4>Maria J.</h4>
+                        <p>GritsHub</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"As a local bakery, we hated throwing away good food at the end of the day. Now we're helping our community and reducing waste."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="/api/placeholder/50/50" alt="Business owner avatar">
+                    </div>
+                    <div class="author-info">
+                        <h4>Roberto G.</h4>
+                        <p>Local Bakery Owner</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"GritsHub has helped our grocery store reduce waste by 40% while supporting our local community members in need."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="/api/placeholder/50/50" alt="Store manager avatar">
+                    </div>
+                    <div class="author-info">
+                        <h4>Sandra T.</h4>
+                        <p>Grocery Store Manager</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Join the Movement</h2>
+            <p>Whether you're a business with surplus food or an individual looking to access quality food, GritsHub makes it easy to connect and make a difference.</p>
+            <div class="cta-buttons">
+                <a href="#" class="button cta-primary">Sign Up Now</a>
+                <a href="#" class="button cta-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>GritsHub</h3>
+                <p>Reducing food waste and fighting hunger one connection at a time.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">📱</a>
+                    <a href="#" class="social-icon">💻</a>
+                    <a href="#" class="social-icon">📧</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#for-businesses">For Businesses</a></li>
+                    <li><a href="#for-recipients">For Recipients</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 GritsHub. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
