@@ -1,22 +1,23 @@
+const BACKEND_URL = 'https://gritshub-api.onrender.com'; // replace with your deployed backend URL
 
+// Function to handle signup
 async function signup(username, email, password) {
   try {
-    const response = await fetch('http://localhost:5000/api/signup', {
+    const response = await fetch(`${BACKEND_URL}/api/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include', // Important for cookies/sessions
+      credentials: 'include', // Needed for cookies/sessions
       body: JSON.stringify({ username, email, password }),
     });
-    
+
     const data = await response.json();
-    
+
     if (!response.ok) {
       throw new Error(data.message || 'Signup failed');
     }
-    
-    // Handle successful signup (e.g., redirect to dashboard)
+
     console.log('Signup successful:', data);
     return data;
   } catch (error) {
@@ -28,22 +29,21 @@ async function signup(username, email, password) {
 // Function to handle login
 async function login(email, password) {
   try {
-    const response = await fetch('http://localhost:5000/api/login', {
+    const response = await fetch(`${BACKEND_URL}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include', // Important for cookies/sessions
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     });
-    
+
     const data = await response.json();
-    
+
     if (!response.ok) {
       throw new Error(data.message || 'Login failed');
     }
-    
-    // Handle successful login (e.g., redirect to dashboard)
+
     console.log('Login successful:', data);
     return data;
   } catch (error) {
@@ -55,14 +55,14 @@ async function login(email, password) {
 // Function to check if user is logged in
 async function checkAuthStatus() {
   try {
-    const response = await fetch('http://localhost:5000/api/me', {
+    const response = await fetch(`${BACKEND_URL}/api/me`, {
       credentials: 'include',
     });
-    
+
     if (!response.ok) {
-      return null; // Not logged in or error
+      return null;
     }
-    
+
     const data = await response.json();
     return data.user;
   } catch (error) {
@@ -74,18 +74,17 @@ async function checkAuthStatus() {
 // Function to handle logout
 async function logout() {
   try {
-    const response = await fetch('http://localhost:5000/api/logout', {
+    const response = await fetch(`${BACKEND_URL}/api/logout`, {
       method: 'POST',
       credentials: 'include',
     });
-    
+
     const data = await response.json();
-    
+
     if (!response.ok) {
       throw new Error(data.message || 'Logout failed');
     }
-    
-    // Handle successful logout (e.g., redirect to home)
+
     console.log('Logout successful');
     return true;
   } catch (error) {
@@ -94,23 +93,19 @@ async function logout() {
   }
 }
 
-// 2. Example of how to connect these functions to your login/signup buttons
-
+// Connect forms to logic
 document.addEventListener('DOMContentLoaded', () => {
-  // Handle login form submission
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
-      
+
       try {
         const userData = await login(email, password);
-        // Redirect to dashboard or update UI
         window.location.href = '/dashboard.html';
       } catch (error) {
-        // Display error message to user
         const errorElement = document.getElementById('login-error');
         if (errorElement) {
           errorElement.textContent = error.message;
@@ -118,8 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
-  // Handle signup form submission
+
   const signupForm = document.getElementById('signup-form');
   if (signupForm) {
     signupForm.addEventListener('submit', async (e) => {
@@ -127,13 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const username = document.getElementById('signup-username').value;
       const email = document.getElementById('signup-email').value;
       const password = document.getElementById('signup-password').value;
-      
+
       try {
         const userData = await signup(username, email, password);
-        // Redirect to dashboard or update UI
         window.location.href = '/dashboard.html';
       } catch (error) {
-        // Display error message to user
         const errorElement = document.getElementById('signup-error');
         if (errorElement) {
           errorElement.textContent = error.message;
@@ -142,12 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Check if user is already logged in on page load
+  // Check session on load
   checkAuthStatus().then(user => {
     if (user) {
-      // User is logged in, update UI accordingly
       console.log('User is logged in:', user);
-      // You might want to show/hide certain elements
     }
   });
 });
