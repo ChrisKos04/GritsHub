@@ -1,5 +1,4 @@
-const BACKEND_URL = 'https://gritshub-api.onrender.com'; // replace with your deployed backend URL
-
+const BACKEND_URL = 'https://gritshub.onrender.com';
 // Function to handle signup
 async function signup(username, email, password) {
   try {
