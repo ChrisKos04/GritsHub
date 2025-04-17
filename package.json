@@ -1,0 +1,27 @@
+{
+  "name": "gritshubproject",
+  "version": "1.0.0",
+  "description": "*GritsHub* is an innovative platform that we will be developing as both an app 📱 and a website 🌐, designed to connect verified low-income individuals with local businesses that have surplus food 🍞🥦 to donate. Verified users—initially through government-issued assistance programs like EBT/Food Stamps 💳—will be able to reserve excess food from grocery stores 🛒, restaurants 🍕, candy stores 🍬, and other edible businesses 🍽️ that would otherwise go to waste. The aim is to alleviate food insecurity 🍽️ by providing a dignified and convenient way for individuals to access food during tight weeks 💸 while also reducing the strain on food pantries and fighting food waste ♻️.",
+  "main": "Authentication.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chriskos04/GritsHub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chriskos04/GritsHub/issues"
+  },
+  "homepage": "https://github.com/Chriskos04/GritsHub#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.13.2"
+  }
+}
