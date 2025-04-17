@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GritsHub - Sign Up</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #FF9800;
+            --dark: #2E7D32;
+            --light: #E8F5E9;
+            --text: #333;
+            --white: #fff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .primary-button {
+            background-color: var(--dark);
+            color: var(--white);
+            border: none;
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .auth-form-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 1rem 4rem;
+            background-color: var(--light);
+        }
+        
+        .auth-form {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .auth-form h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .auth-form .subtitle {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group button:hover {
+            background-color: var(--dark);
+        }
+        
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .user-type-selector {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .user-type-toggle {
+            display: inline-flex;
+            background-color: #f0f0f0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .user-type-toggle label {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-type-toggle input[type="radio"] {
+            display: none;
+        }
+        
+        .user-type-toggle input[type="radio"]:checked + label {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;  
+            height: 2px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+        
+        .step-number {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: #666;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step.active .step-number {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background-color: var(--dark);
+            color: white;
+        }
+        
+        .step.completed:not(:last-child)::after {
+            background-color: var(--primary);
+        }
+        
+        .step-title {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .step.active .step-title {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .step.completed .step-title {
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .help-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+        
+        .verification-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .verification-option:hover {
+            border-color: var(--primary);
+            background-color: var(--light);
+        }
+        
+        .verification-option input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+        
+        .verification-option-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;  
+        }
+        
+        .verification-option-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .verification-upload {
+            margin-top: 1.5rem;
+        }
+        
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary);
+            background-color: var(--light);
+        }
+        
+        .file-upload-icon {
+            font-size: 2rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .file-upload-text {
+            margin-bottom: 1rem;
+        }
+        
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        
+        .file-upload-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .success-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: #333;
+            color: var(--white);
+            padding: 3rem 1rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">♻️</span> GritsHub
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="index.html#for-businesses">For Businesses</a></li>
+                    <li><a href="index.html#for-recipients">For Recipients</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="button secondary-button">Log In</a>
+                <a href="signup.html" class="button primary-button">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="auth-form-container">
+        <div class="auth-form">
+            <h2>Create Your GritsHub Account</h2>
+            
+            <div class="user-type-selector">
+                <p>I am a:</p>
+                <div class="user-type-toggle">
+                    <input type="radio" id="recipient" name="user-type" value="recipient" checked>
+                    <label for="recipient">Food Recipient</label>
+                    <input type="radio" id="business" name="user-type" value="business">
+                    <label for="business">Business/Donor</label>
+                </div>
+            </div>
+            
+            <div class="step-indicator">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Account Info</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Profile Details</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Verification</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Complete</div>
+                </div>
+            </div>
+            
+            <form id="signup-form">
+                <!-- Step 1: Account Information -->
+                <div class="form-section active" data-step="1">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required minlength="8">
+                            <div class="help-text">At least 8 characters</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
+                        </div>
+                    </div>
+                    <div class="navigation-buttons">
+                        <div></div> <!-- Empty div for spacing -->
+                        <button type="button" class="button primary-button next-step" data-next="2">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Profile Details -->
+                <div class="form-section" data-step="2">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last-name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select id="state" name="state" required>
+                                <option value="">Select State</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="NY">New York</option>
+                                <option value="TX">Texas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">ZIP Code</label>
+                            <input type="text" id="zip" name="zip" required>
+                        </div>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button type="button" class="button secondary-button prev-step" data-prev="1">Previous</button>
+                        <button type="button" class="button primary-button next-step" data-next="3">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Verification (EBT/SNAP for recipients) -->
+                <div class="form-section" data-step="3" id="verification-recipient">
+                    <h3>EBT/SNAP Verification</h3>
+                    <p>Please verify your eligibility by providing your EBT/SNAP information below. This is a one-time verification process.</p>
+                    
+                    <div class="form-group">
+                        <label>Verification Method</label>
+                        <div class="verification-option">
+                            <input type="radio" id="ebt-card" name="verification-method" value="ebt-card" checked>
+                            <div class="verification-option-title">EBT/SNAP Card Information</div>
+                            <div class="verification-option-description">Enter your EBT/SNAP card number and other details to verify your eligibility.</div>
+                        </div>
+                        <div class="verification-option">
+                            <input type="radio" id="approval-letter" name="verification-method" value="approval-letter">
+                            <div class="verification-option-title">SNAP Approval Letter</div>
+                            <div class="verification-option-description">Upload a photo or PDF of your most recent approval letter from your state's SNAP office.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- EBT Card Information Form -->
+                    <div class="verification-form active" id="ebt-card-form">
+                        <div class="form-group">
+                            <label for="ebt-number">EBT Card Number</label>
+                            <input type="text" id="ebt-number" name="ebt-number" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+                            <div class="help-text">Enter your 16-digit EBT card number</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ebt-state">EBT Card State</label>
+                                <select id="ebt-state" name="ebt-state" required>
+                                    <option value="">Select State</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <!-- Add more states as needed -->
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="NY">New York</option>
+                                    <option value="TX">Texas</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ebt-expiry">Expiration Date</label>
+                                <input type="month" id="ebt-expiry" name="ebt-expiry" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Approval Letter Upload -->
+                    <div class="verification-upload" id="approval-letter-upload">
+                        <div class="file-upload">
+                            <div class="file-upload-icon">📄</div>
+                            <div class="file-upload-text">
+                                <p>Upload your SNAP approval letter</p>
+                                <p class="help-text">Acceptable formats: PDF, JPG, PNG (Max size: 5MB)</p>
+                            </div>
+                            <label for="approval-document" class="file-upload-button">Choose File</label>
+                            <input type="file" id="approval-document" name="approval-document" accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
+                        <div id="file-name" class="help-text" style="text-align: center; margin-top: 1rem;"></div>
+                    </div>
+                    
+                    <div class="privacy-note">
+                        <h4>Privacy & Security</h4>
+                        <p>Your EBT/SNAP information is securely encrypted and only used for eligibility verification. We never store complete card numbers and your information is never shared with third parties.</p>
+                    </div>
+                    
+                    <div class="navigation-buttons">
+                        <button type="button" class="button secondary-button prev-step" data-prev="2">Previous</button>
+                        <button type="button" class="button primary-button next-step" data-next="4">Verify & Continue</button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Completion -->
+                <div class="form-section" data-step="4">
+                    <div class="success-message">
+                        <div class="success-icon">✅</div>
+                        <h3 class="success-title">Account Created Successfully!</h3>
+                        <p>Your verification has been submitted and your account is now active.</p>
+                        <p style="margin-top: 1rem;">You can now start browsing and reserving available food from local businesses.</p>
+                        <div style="margin-top: 2rem;">
+                            <a href="dashboard.html" class="button primary-button">Go to Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="form-footer">
+                <p>Already have an account? <a href="login.html">Log in</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>GritsHub</h3>
+                <p>Reducing food waste and fighting hunger one connection at a time.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">📱</a>
+                    <a href="#" class="social-icon">💻</a>
+                    <a href="#" class="social-icon">📧</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="index.html#for-businesses">For Businesses</a></li>
+                    <li><a href="index.html#for-recipients">For Recipients</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 GritsHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Step navigation
+            const nextButtons = document.querySelectorAll('.next-step');
+            const prevButtons = document.querySelectorAll('.prev-step');
+            const steps = document.querySelectorAll('.step');
+            const formSections = document.querySelectorAll('.form-section');
+            
+            // Handle next button clicks
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentStep = parseInt(button.getAttribute('data-next')) - 1;
+                    const nextStep = parseInt(button.getAttribute('data-next'));
+                    
+                    // Add validation here if needed
+                    
+                    // Update steps
+                    steps[currentStep].classList.add('completed');
+                    steps[nextStep - 1].classList.add('active');
+                    
+                    // Update form sections
+                    formSections.forEach(section => section.classList.remove('active'));
+                    document.querySelector(`.form-section[data-step="${nextStep}"]`).classList.add('active');
+                });
+            });
+            
+            // Handle previous button clicks
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const currentStep = parseInt(button.parentElement.parentElement.getAttribute('data-step'));
+                    const prevStep = parseInt(button.getAttribute('data-prev'));
+                    
+                    // Update steps
+                    steps[currentStep - 1].classList.remove('active');
+                    steps[prevStep - 1].classList.remove('completed');
+                    steps[prevStep - 1].classList.add('active');
+                    
+                    // Update form sections
+                    formSections.forEach(section => section.classList.remove('active'));
+                    document.querySelector(`.form-section[data-step="${prevStep}"]`).classList.add('active');
+                });
+            });
+            
+            // Verification method toggle
+            const verificationMethods = document.querySelectorAll('input[name="verification-method"]');
+            const verificationForms = {
+                'ebt-card': document.getElementById('ebt-card-form'),
+                'approval-letter': document.getElementById('approval-letter-upload')
+            };
+            
+            verificationMethods.forEach(method => {
+                method.addEventListener('change', function() {
+                    // Hide all verification forms
+                    Object.values(verificationForms).forEach(form => {
+                        form.classList.remove('active');
+                    });
+                    
+                    // Show selected form
+                    verificationForms[this.value].classList.add('active');
+                });
+            });
+            
+            // Display file name when selected
+            const fileInput = document.getElementById('approval-document');
+            const fileName = document.getElementById('file-name');
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    fileName.textContent = `Selected file: ${this.files[0].name}`;
+                } else {
+                    fileName.textContent = '';
+                }
+            });
+            
+            // User type toggle (recipient vs business)
+            const userTypeRadios = document.querySelectorAll('input[name="user-type"]');
+            
+            userTypeRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // In a complete implementation, we would switch between recipient and business verification forms
+                    // For this demo, we're focusing on the recipient flow
+                });
+            });
+            
+            // Form submission
+            const form = document.getElementById('signup-form');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // In a real implementation, you would submit the form data to your server
+                // For this demo, we just navigate to the final step
+                
+                steps.forEach((step, index) => {
+                    if (index < 3) {
+                        step.classList.add('completed');
+                    }
+                });
+                
+                steps[3].classList.add('active');
+                
+                formSections.forEach(section => section.classList.remove('active'));
+                document.querySelector('.form-section[data-step="4"]').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
